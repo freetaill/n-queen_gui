@@ -34,7 +34,7 @@
             // 
             // start
             // 
-            this.start.Location = new System.Drawing.Point(109, 12);
+            this.start.Location = new System.Drawing.Point(347, 199);
             this.start.Name = "start";
             this.start.Size = new System.Drawing.Size(75, 23);
             this.start.TabIndex = 0;
@@ -44,7 +44,7 @@
             // 
             // textBox
             // 
-            this.textBox.Location = new System.Drawing.Point(3, 12);
+            this.textBox.Location = new System.Drawing.Point(332, 170);
             this.textBox.Name = "textBox";
             this.textBox.Size = new System.Drawing.Size(100, 23);
             this.textBox.TabIndex = 1;
