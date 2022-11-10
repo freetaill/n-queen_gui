@@ -22,6 +22,7 @@ namespace n_queen_gui
             this.CenterToScreen();
         }
 
+        // form2가 실행될때 동작하는 함수 모음
         private void Form2_Load(object sender, EventArgs e)
         {
             // form1에서 정보를 가져올 수 있게하는 역할을 수행
@@ -60,12 +61,12 @@ namespace n_queen_gui
                 // 스택에 들어가는 순간 "object?"형식으로 포장되듯이
                 // 형변환되기 때문에 꺼낼 때 넣기 전 형식으로
                 // 형변환 해주어야한다.
-                int[] kk = (int[])copy.Pop();
-                if (kk.SequenceEqual(compare)) 
-                { 
-                    flag = true;
-                }
+                int[] copy_file = (int[])copy.Pop();
+                // SequenceEqual을 이용해 두 배열을 대조하여 일치할 경우
+                // 아래 if문이 동작하도록 flag값을 true로 바꾼다. 
+                if (copy_file.SequenceEqual(compare)) { flag = true; }
             }
+            //flag값에 따라 알맞은 메세지를 출력하는 역할 수행
             if (flag==true) { MessageBox.Show("정답"); }
             else { MessageBox.Show("오답"); }
         }
