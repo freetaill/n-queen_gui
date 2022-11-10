@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -134,31 +135,62 @@ namespace n_queen_gui
 
             int k = Convert.ToInt32(btn.Name);
             int num = form1.num;
-            
+            //보드판의 세로(열)
+            int column = k / num;
+            //보드판의 가로(행)
+            int row = k % num;
+
             // 버튼을 눌렀을 때 해당 버튼의 값이 저장됬는지에 따라 
             // 그림의 출력과 삭제를 판별하는 역할 수행
-            if (compare[0] == 0 && k / num == 0)
+            if (compare[0] == 0 && column == 0)
             {
-                compare[k / num] = k % num + 1;
+                remove_action(column, num);
                 Image? b = Properties.Resources.ResourceManager
                 .GetObject("Queen_Picture") as Image;
                 btn.Image = b;
+                compare[column] = row + 1;
             }
-            else if (compare[k / num] == (k % num + 1))
+            else if (compare[column] == (row + 1))
             {
-                compare[k / num] = 0;
                 Image? b = Properties.Resources.ResourceManager
                 .GetObject("") as Image;
                 btn.Image = b;
+                compare[column] = 0;
             }
             else
             {
-                compare[k / num] = k % num + 1;
+                remove_action(column, num);
                 Image? b = Properties.Resources.ResourceManager
                 .GetObject("Queen_Picture") as Image;
                 btn.Image = b;
+                compare[column] = row + 1;
             }
+        }
 
+        // 이전에 선택했던 여왕이 존재할 때
+        // 이전에 여왕을 배치한 버튼의 이름을 가져와서
+        // 해당 버튼의 위치를 표시하는 이미지를 지우는 알고리즘 
+        void remove_action(int column, int num)
+        {
+            Button btn = null;
+            // 이전에 배치한 여왕이 존재하는지 판별하는 역할 수행
+            if (compare[column] != 0)
+            {
+                //이전에 선택했던 버튼의 이름을 가져오는 역할을 하는 식
+                string btnName = (column * num + compare[column] - 1).ToString();
+                //가져오려는 버튼이 존재하는지 판별하는 역할을 수행함
+                if (this.Controls.ContainsKey(btnName))
+                {
+                    // 가져온 버튼을 배정하는 식
+                    btn = this.Controls[btnName] as Button;
+                    // 이미 배치한 여왕이 존재할때 그 위치의 버튼에 출력된 이미지를 지우는 역할을 수행
+                    Image? b = Properties.Resources.ResourceManager
+                        .GetObject("") as Image;
+                    btn.Image = b;
+                    
+                }
+            }
+           
         }
 
         //여왕이 서로 공격가능한 위치에 있는지를 판별하는 역할
