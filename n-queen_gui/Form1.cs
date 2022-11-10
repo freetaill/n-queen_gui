@@ -12,8 +12,9 @@ namespace n_queen_gui
 
         private void start_Click(object? sender, EventArgs e)
         {
-            //예외처리 또는 범위 지정으로 정수값만 입력되게 만들기
             bool flag = true;
+            // textbox에 정수가 입력되는지 판별하는 역할 수행
+            // 정수가 입력되지 않으면 메세지 출력 실행
             try { num = Convert.ToInt32(textBox.Text); }
 
             catch (FormatException)
@@ -22,8 +23,10 @@ namespace n_queen_gui
                 flag = false;
             }
 
+            // textbox에 정수가 입력됬을 때 실행되는 함수 
             if (flag)
             {
+                // form1을 숨기는 역할 수행
                 this.Hide();
                 Form2 form2 = new Form2();
                 form2.StartPosition = FormStartPosition.CenterScreen;
