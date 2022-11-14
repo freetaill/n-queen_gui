@@ -31,7 +31,6 @@ namespace n_queen_gui
             int num = form1.num;
 
             int[] col = new int[num+1];
-            compare = new int[num];
             possibility_push(col, 0);
             DynamicButton(num);
         }
@@ -99,6 +98,7 @@ namespace n_queen_gui
             btn_Reset.Location = new Point(50 , 50 + 90 * count);
             btn_compare.Location = new Point(150, 50 + 90 * count);
             btn_end.Location = new Point(250, 50 + 90 * count);
+            compare = new int[count];
 
             for (int y = 0; y < count; y++)
             {
@@ -135,49 +135,49 @@ namespace n_queen_gui
 
             int k = Convert.ToInt32(btn.Name);
             int num = form1.num;
-            //보드판의 세로(열)
-            int column = k / num;
-            //보드판의 가로(행)
-            int row = k % num;
+            //보드판의 세로(행)
+            int row = k / num;
+            //보드판의 가로(열)
+            int column = k % num;
 
             // 버튼을 눌렀을 때 해당 버튼의 값이 저장됬는지에 따라 
             // 그림의 출력과 삭제를 판별하는 역할 수행
-            if (compare[0] == 0 && column == 0)
+            if (compare[0] == 0 && row == 0)
             {
-                remove_action(column, num);
+                remove_action(row, num);
                 Image? b = Properties.Resources.ResourceManager
                 .GetObject("Queen_Picture") as Image;
                 btn.Image = b;
-                compare[column] = row + 1;
+                compare[row] = column + 1;
             }
-            else if (compare[column] == (row + 1))
+            else if (compare[row] == (column + 1))
             {
                 Image? b = Properties.Resources.ResourceManager
                 .GetObject("") as Image;
                 btn.Image = b;
-                compare[column] = 0;
+                compare[row] = 0;
             }
             else
             {
-                remove_action(column, num);
+                remove_action(row, num);
                 Image? b = Properties.Resources.ResourceManager
                 .GetObject("Queen_Picture") as Image;
                 btn.Image = b;
-                compare[column] = row + 1;
+                compare[row] = column + 1;
             }
         }
 
         // 이전에 선택했던 여왕이 존재할 때
         // 이전에 여왕을 배치한 버튼의 이름을 가져와서
         // 해당 버튼의 위치를 표시하는 이미지를 지우는 알고리즘 
-        void remove_action(int column, int num)
+        void remove_action(int row, int num)
         {
             Button btn = null;
             // 이전에 배치한 여왕이 존재하는지 판별하는 역할 수행
-            if (compare[column] != 0)
+            if (compare[row] != 0)
             {
                 //이전에 선택했던 버튼의 이름을 가져오는 역할을 하는 식
-                string btnName = (column * num + compare[column] - 1).ToString();
+                string btnName = (row * num + compare[row] - 1).ToString();
                 //가져오려는 버튼이 존재하는지 판별하는 역할을 수행함
                 if (this.Controls.ContainsKey(btnName))
                 {
