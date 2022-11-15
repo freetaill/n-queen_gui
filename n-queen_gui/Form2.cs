@@ -33,6 +33,7 @@ namespace n_queen_gui
             int[] col = new int[num+1];
             possibility_push(col, 0);
             DynamicButton(num);
+            compare = new int[num];
         }
 
         // form2 위의 모든 컨트롤을 모두 지우고 재생성하여 화면에
@@ -47,6 +48,7 @@ namespace n_queen_gui
             this.Controls.Add(btn_compare);
             this.Controls.Add(btn_back);
             DynamicButton(num);
+            compare = new int[num];
         }
 
         // 보드위에 배치된 여왕의 값과 정답이 저장된 스택을
@@ -98,7 +100,6 @@ namespace n_queen_gui
             btn_Reset.Location = new Point(50 , 50 + 90 * count);
             btn_compare.Location = new Point(150, 50 + 90 * count);
             btn_end.Location = new Point(250, 50 + 90 * count);
-            compare = new int[count];
 
             for (int y = 0; y < count; y++)
             {
@@ -142,15 +143,7 @@ namespace n_queen_gui
 
             // 버튼을 눌렀을 때 해당 버튼의 값이 저장됬는지에 따라 
             // 그림의 출력과 삭제를 판별하는 역할 수행
-            if (compare[0] == 0 && row == 0)
-            {
-                remove_action(row, num);
-                Image? b = Properties.Resources.ResourceManager
-                .GetObject("Queen_Picture") as Image;
-                btn.Image = b;
-                compare[row] = column + 1;
-            }
-            else if (compare[row] == (column + 1))
+            if (compare[row] == (column + 1))
             {
                 Image? b = Properties.Resources.ResourceManager
                 .GetObject("") as Image;
